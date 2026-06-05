@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>مترجم الهدى</title>
+    <style>
+        body {
+            font-family: 'Cairo', sans-serif;
+            background: #f4f6f7; /* خلفية فاتحة (رمادي فاتح) */
+            text-align: center;
+            padding: 30px;
+            color: #333;
+        }
+        h2 {
+            font-size: 2em; /* تصغير حجم العنوان */
+            color: #2ecc71; /* تغيير لون العنوان إلى أخضر */
+            margin-bottom: 20px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .translator {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 30px;
+            max-width: 1000px;
+            margin: auto;
+            background: #ffffff;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        .box {
+            flex: 1;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            background: #f9f9f9;
+            display: flex;
+            flex-direction: column;
+        }
+        select {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 15px;
+            border-radius: 10px;
+            border: 1px solid #ccc;
+            background: #fff;
+            font-size: 16px;
+        }
+        textarea {
+            width: 100%;
+            height: 180px;
+            padding: 12px;
+            border-radius: 10px;
+            border: 1px solid #ccc;
+            resize: none;
+            font-size: 16px;
+            flex-grow: 1;
+            background: #fff;
+            color: #333;
+        }
+        button {
+            background: #27ae60;
+            color: white;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            margin-top: 15px;
+            font-size: 18px;
+        }
+        button:hover {
+            background: #2ecc71;
+        }
+        .footer {
+            margin-top: 30px;
+            font-size: 18px;
+            color: #777;
+            font-weight: bold;
+        }
+        .loading {
+            display: none;
+            margin-top: 10px;
+            font-size: 18px;
+            color: #3498db;
+        }
+    </style>
+</head>
+<body>
+    <h2>مترجم الهدى</h2>
+    <div class="translator">
+        <div class="box">
+            <select id="toLanguage">
+                <option value="ar">العربية</option>
+                <option value="en">الإنجليزية</option>
+                <option value="fr">الفرنسية</option>
+                <option value="es">الإسبانية</option>
+                <option value="de">الألمانية</option>
+                <option value="zh-CN">الصينية</option>
+            </select>
+            <textarea id="result" readonly></textarea>
+        </div>
+        <div class="box">
+            <select id="fromLanguage">
+                <option value="ar">العربية</option>
+                <option value="en">الإنجليزية</option>
+                <option value="fr">الفرنسية</option>
+                <option value="es">الإسبانية</option>
+                <option value="de">الألمانية</option>
+                <option value="zh-CN">الصينية</option>
+            </select>
+            <textarea id="text" placeholder="أدخل النص هنا..."></textarea>
+        </div>
+    </div>
+    <button onclick="translateText()">ترجمة</button>
+    <div class="loading" id="loading">جاري الترجمة...</div>
+    <div class="footer">بإشراف الأستاذ مصطفى، الست هدى</div>
+    
+    <script>
+        async function translateText() {
+            let text = document.getElementById("text").value;
+            let fromLang = document.getElementById("fromLanguage").value;
+            let toLang = document.getElementById("toLanguage").value;
+            
+            // التحقق من إدخال النص
+            if (!text.trim()) {
+                alert("يرجى إدخال النص للترجمة!");
+                return;
+            }
+
+            // إظهار دائرة التحميل
+            document.getElementById("loading").style.display = "block";
+
+            let url = `https://api.mymemory.translated.net/get?q=${text}&langpair=${fromLang}|${toLang}`;
+            
+            try {
+                let response = await fetch(url);
+                let data = await response.json();
+                
+                // إخفاء دائرة التحميل
+                document.getElementById("loading").style.display = "none";
+
+                // عرض الترجمة
+                document.getElementById("result").value = data.responseData.translatedText;
+            } catch (error) {
+                // إخفاء دائرة التحميل عند حدوث خطأ
+                document.getElementById("loading").style.display = "none";
+                alert("حدث خطأ أثناء الترجمة. حاول مرة أخرى.");
+            }
+        }
+    </script>
+</body>
+</html>
