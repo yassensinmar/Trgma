@@ -1,0 +1,990 @@
+
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>إعدادية الحسين بن روح العلمية</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@100;200;300;400;500;600;700;800;900&display=swap');
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Noto Sans Arabic', sans-serif;
+    }
+    
+    body {
+      background-color: #f0f6ff;
+      color: #333;
+      direction: rtl;
+    }
+    
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    
+    header {
+      text-align: center;
+      padding: 30px 0;
+    }
+    
+    header h1 {
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: #1e88e5;
+      margin-bottom: 10px;
+      animation: fadeIn 1s ease-in;
+    }
+    
+    header p {
+      font-size: 1.2rem;
+      color: #666;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    
+    .subjects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 25px;
+      margin-top: 30px;
+    }
+    
+    .subject-card {
+      background-color: white;
+      border-radius: 15px;
+      padding: 25px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      justify-content: space-between;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      animation: scaleIn 0.5s ease-in-out;
+    }
+    
+    .subject-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+    }
+    
+    .subject-card h2 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+    
+    .subject-card p {
+      color: #666;
+      margin-bottom: 20px;
+    }
+    
+    .subject-btn {
+      padding: 12px 15px;
+      border-radius: 8px;
+      text-align: center;
+      text-decoration: none;
+      font-weight: 600;
+      cursor: pointer;
+      transition: opacity 0.3s ease;
+      display: block;
+    }
+    
+    .subject-btn:hover {
+      opacity: 0.9;
+    }
+    
+    .btn-english {
+      background-color: #1e88e5;
+      color: white;
+    }
+    
+    .btn-math {
+      background-color: #43a047;
+      color: white;
+    }
+    
+    .btn-arabic {
+      background-color: #ffeb3b;
+      color: black;
+    }
+    
+    .btn-chemistry {
+      background-color: #e53935;
+      color: white;
+    }
+    
+    .btn-physics {
+      background-color: #5e35b1;
+      color: white;
+    }
+    
+    .btn-biology {
+      background-color: #00897b;
+      color: white;
+    }
+    
+    .section {
+      display: none;
+      padding: 20px;
+      background-color: white;
+      border-radius: 15px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      margin-top: 30px;
+      animation: fadeIn 0.5s ease-in-out;
+    }
+    
+    .section.active {
+      display: block;
+    }
+    
+    .back-btn {
+      background-color: #666;
+      color: white;
+      padding: 10px 20px;
+      border-radius: 8px;
+      cursor: pointer;
+      display: inline-block;
+      margin-bottom: 20px;
+      text-decoration: none;
+    }
+    
+    .card {
+      background-color: white;
+      border-radius: 10px;
+      padding: 20px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      margin-bottom: 20px;
+    }
+    
+    .form-group {
+      margin-bottom: 20px;
+    }
+    
+    label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 600;
+    }
+    
+    input, textarea, select {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      font-size: 1rem;
+      font-family: 'Noto Sans Arabic', sans-serif;
+    }
+    
+    button {
+      padding: 12px 20px;
+      background-color: #1e88e5;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    
+    button:hover {
+      opacity: 0.9;
+    }
+    
+    .flex {
+      display: flex;
+    }
+    
+    .gap-2 {
+      gap: 10px;
+    }
+    
+    .mb-4 {
+      margin-bottom: 20px;
+    }
+    
+    .grid {
+      display: grid;
+    }
+    
+    .grid-cols-4 {
+      grid-template-columns: repeat(4, 1fr);
+    }
+    
+    .grid-cols-2 {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .col-span-2 {
+      grid-column: span 2;
+    }
+    
+    .tabs {
+      display: flex;
+      border-bottom: 1px solid #ddd;
+      margin-bottom: 20px;
+    }
+    
+    .tab {
+      padding: 10px 20px;
+      cursor: pointer;
+      background-color: #f5f5f5;
+    }
+    
+    .tab.active {
+      background-color: white;
+      border-bottom: 2px solid #1e88e5;
+    }
+    
+    .tab-content {
+      display: none;
+    }
+    
+    .tab-content.active {
+      display: block;
+    }
+    
+    .result {
+      background-color: #f5f5f5;
+      padding: 15px;
+      border-radius: 8px;
+      margin-top: 20px;
+    }
+    
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    
+    @keyframes scaleIn {
+      from { transform: scale(0.95); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+    
+    @media (max-width: 768px) {
+      .subjects-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .grid-cols-4, .grid-cols-2 {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+    
+    @media (max-width: 480px) {
+      .grid-cols-4, .grid-cols-2 {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>إعدادية الحسين بن روح العلمية</h1>
+      <p>منصة تعليمية متكاملة تساعد الطلاب على فهم المواد الدراسية بطريقة تفاعلية</p>
+    </header>
+    
+    <div id="home-section">
+      <div class="subjects-grid">
+        <div class="subject-card">
+          <div>
+            <h2>الرياضيات</h2>
+            <p>آلة حاسبة لحل المسائل الحسابية</p>
+          </div>
+          <a class="subject-btn btn-math" onclick="showSection('math-section')">فتح الآلة الحاسبة</a>
+        </div>
+        
+        <div class="subject-card">
+          <div>
+            <h2>اللغة الإنجليزية</h2>
+            <p>ترجمة الكلمات بين العربية والإنجليزية</p>
+          </div>
+          <a class="subject-btn btn-english" onclick="showSection('english-section')">فتح المترجم</a>
+        </div>
+        
+        <div class="subject-card">
+          <div>
+            <h2>اللغة العربية</h2>
+            <p>إعراب الكلمات ومعرفة معانيها</p>
+          </div>
+          <a class="subject-btn btn-arabic" onclick="showSection('arabic-section')">فتح القاموس العربي</a>
+        </div>
+        
+        <div class="subject-card">
+          <div>
+            <h2>الكيمياء</h2>
+            <p>حل المعادلات الكيميائية وتحضير الغازات</p>
+          </div>
+          <a class="subject-btn btn-chemistry" onclick="showSection('chemistry-section')">حل المعادلة أو الغاز</a>
+        </div>
+        
+        <div class="subject-card">
+          <div>
+            <h2>الفيزياء</h2>
+            <p>معلومات الفيزياء وحساباتها</p>
+          </div>
+          <a class="subject-btn btn-physics" onclick="showSection('physics-section')">فتح الفيزياء</a>
+        </div>
+        
+        <div class="subject-card">
+          <div>
+            <h2>الأحياء</h2>
+            <p>معلومات عن الكائنات الحية</p>
+          </div>
+          <a class="subject-btn btn-biology" onclick="showSection('biology-section')">فتح الأحياء</a>
+        </div>
+      </div>
+    </div>
+    
+    <!-- قسم اللغة الإنجليزية: المترجم -->
+    <div id="english-section" class="section">
+      <a class="back-btn" onclick="showSection('home-section')">العودة للصفحة الرئيسية</a>
+      <h2>مترجم اللغة الإنجليزية</h2>
+      
+      <div class="card">
+        <div class="form-group">
+          <div class="flex gap-2 mb-4">
+            <div style="flex: 1;">
+              <label for="source-lang">الترجمة من:</label>
+              <select id="source-lang">
+                <option value="ar">العربية</option>
+                <option value="en">الإنجليزية</option>
+              </select>
+            </div>
+            
+            <div style="align-self: center; margin-top: 20px;">
+              <button onclick="swapLanguages()">تبديل</button>
+            </div>
+            
+            <div style="flex: 1;">
+              <label for="target-lang">الترجمة إلى:</label>
+              <select id="target-lang">
+                <option value="en">الإنجليزية</option>
+                <option value="ar">العربية</option>
+              </select>
+            </div>
+          </div>
+          
+          <div class="form-group">
+            <label for="input-text">النص:</label>
+            <textarea id="input-text" rows="4" placeholder="أدخل النص المراد ترجمته..."></textarea>
+          </div>
+          
+          <button onclick="translate()" class="btn-english">ترجم</button>
+          
+          <div class="result" id="translation-result">
+            الترجمة ستظهر هنا...
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- قسم الرياضيات: الآلة الحاسبة -->
+    <div id="math-section" class="section">
+      <a class="back-btn" onclick="showSection('home-section')">العودة للصفحة الرئيسية</a>
+      <h2>الآلة الحاسبة</h2>
+      
+      <div class="card">
+        <div id="calculator">
+          <div class="result mb-4" id="calculator-display">0</div>
+          <div class="grid grid-cols-4 gap-2">
+            <button class="calc-btn" onclick="appendToDisplay('7')">7</button>
+            <button class="calc-btn" onclick="appendToDisplay('8')">8</button>
+            <button class="calc-btn" onclick="appendToDisplay('9')">9</button>
+            <button class="calc-btn" onclick="appendToDisplay('/')" style="background-color: #ffab00;">÷</button>
+            
+            <button class="calc-btn" onclick="appendToDisplay('4')">4</button>
+            <button class="calc-btn" onclick="appendToDisplay('5')">5</button>
+            <button class="calc-btn" onclick="appendToDisplay('6')">6</button>
+            <button class="calc-btn" onclick="appendToDisplay('*')" style="background-color: #ffab00;">×</button>
+            
+            <button class="calc-btn" onclick="appendToDisplay('1')">1</button>
+            <button class="calc-btn" onclick="appendToDisplay('2')">2</button>
+            <button class="calc-btn" onclick="appendToDisplay('3')">3</button>
+            <button class="calc-btn" onclick="appendToDisplay('-')" style="background-color: #ffab00;">-</button>
+            
+            <button class="calc-btn" onclick="appendToDisplay('0')">0</button>
+            <button class="calc-btn" onclick="appendToDisplay('.')">.</button>
+            <button class="calc-btn" onclick="clearDisplay()" style="background-color: #f44336;">C</button>
+            <button class="calc-btn" onclick="appendToDisplay('+')" style="background-color: #ffab00;">+</button>
+            
+            <button class="calc-btn col-span-2" onclick="deleteLastChar()" style="background-color: #f44336;">⌫</button>
+            <button class="calc-btn col-span-2" onclick="calculate()" style="background-color: #43a047;">=</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- قسم اللغة العربية: القاموس -->
+    <div id="arabic-section" class="section">
+      <a class="back-btn" onclick="showSection('home-section')">العودة للصفحة الرئيسية</a>
+      <h2>القاموس العربي</h2>
+      
+      <div class="card">
+        <div class="form-group">
+          <div class="flex gap-2">
+            <input type="text" id="arabic-search" placeholder="ابحث عن كلمة...">
+            <button onclick="searchArabicWord()" class="btn-arabic" style="color: black;">بحث</button>
+          </div>
+        </div>
+        
+        <div class="tabs">
+          <div class="tab active" onclick="switchTab('meaning-tab')" id="meaning-tab-btn">المعنى</div>
+          <div class="tab" onclick="switchTab('grammar-tab')" id="grammar-tab-btn">الإعراب</div>
+        </div>
+        
+        <div id="arabic-result" style="display:none;">
+          <div id="meaning-tab" class="tab-content active">
+            <h3 id="word-title" class="mb-4"></h3>
+            <p id="word-meaning"></p>
+            <p id="word-type" class="mb-4" style="color: #666;"></p>
+          </div>
+          
+          <div id="grammar-tab" class="tab-content">
+            <h3 id="grammar-title" class="mb-4"></h3>
+            <p id="grammar-analysis"></p>
+          </div>
+        </div>
+        
+        <div class="form-group" style="margin-top: 20px;">
+          <h3 class="mb-4">كلمات مقترحة:</h3>
+          <div class="flex gap-2" style="flex-wrap: wrap;">
+            <button onclick="setWord('كتاب')" class="subject-btn" style="background-color: #eee; color: black;">كتاب</button>
+            <button onclick="setWord('قلم')" class="subject-btn" style="background-color: #eee; color: black;">قلم</button>
+            <button onclick="setWord('مدرسة')" class="subject-btn" style="background-color: #eee; color: black;">مدرسة</button>
+            <button onclick="setWord('طالب')" class="subject-btn" style="background-color: #eee; color: black;">طالب</button>
+            <button onclick="setWord('معلم')" class="subject-btn" style="background-color: #eee; color: black;">معلم</button>
+            <button onclick="setWord('كتب')" class="subject-btn" style="background-color: #eee; color: black;">كتب</button>
+            <button onclick="setWord('يكتب')" class="subject-btn" style="background-color: #eee; color: black;">يكتب</button>
+            <button onclick="setWord('قرأ')" class="subject-btn" style="background-color: #eee; color: black;">قرأ</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- قسم الكيمياء -->
+    <div id="chemistry-section" class="section">
+      <a class="back-btn" onclick="showSection('home-section')">العودة للصفحة الرئيسية</a>
+      <h2>الكيمياء</h2>
+      
+      <div class="card">
+        <div class="tabs">
+          <div class="tab active" onclick="switchChemTab('equation-tab')" id="equation-tab-btn">المعادلات الكيميائية</div>
+          <div class="tab" onclick="switchChemTab('gas-tab')" id="gas-tab-btn">تحضير الغازات</div>
+        </div>
+        
+        <div id="equation-tab" class="tab-content active">
+          <div class="form-group">
+            <div class="flex gap-2">
+              <input type="text" id="equation-search" placeholder="أدخل معادلة كيميائية (مثل: H2 + O2)">
+              <button onclick="searchEquation()" class="btn-chemistry">بحث</button>
+            </div>
+          </div>
+          
+          <div id="equation-result" class="result" style="display:none;">
+            <h3 class="mb-4">المعادلة المتوازنة:</h3>
+            <p id="balanced-equation" class="mb-4" style="text-align: center; direction: ltr; font-family: monospace;"></p>
+            <h3 class="mb-4">التوضيح:</h3>
+            <p id="equation-explanation"></p>
+          </div>
+          
+          <div class="form-group" style="margin-top: 20px;">
+            <h3 class="mb-4">اقتراحات:</h3>
+            <div class="flex gap-2" style="flex-wrap: wrap;">
+              <button onclick="setEquation('H2 + O2')" class="subject-btn" style="background-color: #eee; color: black;">H2 + O2</button>
+              <button onclick="setEquation('NaOH + HCl')" class="subject-btn" style="background-color: #eee; color: black;">NaOH + HCl</button>
+              <button onclick="setEquation('CaCO3')" class="subject-btn" style="background-color: #eee; color: black;">CaCO3</button>
+              <button onclick="setEquation('C + O2')" class="subject-btn" style="background-color: #eee; color: black;">C + O2</button>
+              <button onclick="setEquation('CH4 + O2')" class="subject-btn" style="background-color: #eee; color: black;">CH4 + O2</button>
+            </div>
+          </div>
+        </div>
+        
+        <div id="gas-tab" class="tab-content">
+          <div class="form-group">
+            <div class="flex gap-2">
+              <input type="text" id="gas-search" placeholder="أدخل رمز الغاز (مثل: H2, O2, CO2)">
+              <button onclick="searchGas()" class="btn-chemistry">بحث</button>
+            </div>
+          </div>
+          
+          <div id="gas-result" class="result" style="display:none;">
+            <h3 id="gas-name" class="mb-4"></h3>
+            <h4 class="mb-4">طريقة التحضير:</h4>
+            <p id="gas-preparation" class="mb-4"></p>
+            <h4 class="mb-4">الخصائص:</h4>
+            <p id="gas-properties"></p>
+          </div>
+          
+          <div class="form-group" style="margin-top: 20px;">
+            <h3 class="mb-4">اقتراحات:</h3>
+            <div class="flex gap-2" style="flex-wrap: wrap;">
+              <button onclick="setGas('H2')" class="subject-btn" style="background-color: #eee; color: black;">H2</button>
+              <button onclick="setGas('O2')" class="subject-btn" style="background-color: #eee; color: black;">O2</button>
+              <button onclick="setGas('CO2')" class="subject-btn" style="background-color: #eee; color: black;">CO2</button>
+              <button onclick="setGas('NH3')" class="subject-btn" style="background-color: #eee; color: black;">NH3</button>
+              <button onclick="setGas('Cl2')" class="subject-btn" style="background-color: #eee; color: black;">Cl2</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- قسم الفيزياء -->
+    <div id="physics-section" class="section">
+      <a class="back-btn" onclick="showSection('home-section')">العودة للصفحة الرئيسية</a>
+      <h2>الفيزياء</h2>
+      
+      <div class="card">
+        <h3 class="mb-4">قوانين الفيزياء الأساسية</h3>
+        
+        <div class="mb-4">
+          <h4>قانون نيوتن الأول (قانون القصور الذاتي):</h4>
+          <p>يبقى الجسم على حالته من سكون أو حركة منتظمة في خط مستقيم ما لم تؤثر عليه قوة خارجية تغير من حالته.</p>
+        </div>
+        
+        <div class="mb-4">
+          <h4>قانون نيوتن الثاني:</h4>
+          <p>القوة = الكتلة × التسارع (F = m × a)</p>
+        </div>
+        
+        <div class="mb-4">
+          <h4>قانون نيوتن الثالث:</h4>
+          <p>لكل فعل رد فعل مساوٍ له في المقدار ومعاكس له في الاتجاه.</p>
+        </div>
+        
+        <div class="mb-4">
+          <h4>قانون الجاذبية العام:</h4>
+          <p>F = G × (m₁ × m₂) / r²</p>
+          <p>حيث F هي قوة الجذب بين الجسمين، G ثابت الجاذبية العام، m₁ و m₂ كتلتا الجسمين، و r المسافة بين مركزي الجسمين.</p>
+        </div>
+        
+        <div class="mb-4">
+          <h4>قانون أوم:</h4>
+          <p>V = I × R</p>
+          <p>حيث V هو فرق الجهد، I شدة التيار، و R المقاومة الكهربائية.</p>
+        </div>
+        
+        <div class="mb-4">
+          <h4>قانون حفظ الطاقة:</h4>
+          <p>الطاقة لا تفنى ولا تستحدث من العدم، بل تتحول من شكل إلى آخر.</p>
+        </div>
+      </div>
+    </div>
+    
+    <!-- قسم الأحياء -->
+    <div id="biology-section" class="section">
+      <a class="back-btn" onclick="showSection('home-section')">العودة للصفحة الرئيسية</a>
+      <h2>الأحياء</h2>
+      
+      <div class="card">
+        <h3 class="mb-4">تصنيف الكائنات الحية</h3>
+        
+        <div class="mb-4">
+          <h4>المملكة الحيوانية:</h4>
+          <p>تشمل جميع الحيوانات مثل الثدييات والطيور والزواحف والبرمائيات والأسماك واللافقاريات.</p>
+          <p><strong>أمثلة:</strong> الإنسان، الأسد، النسر، التمساح، الضفدع، السمك الذهبي، النحلة.</p>
+        </div>
+        
+        <div class="mb-4">
+          <h4>المملكة النباتية:</h4>
+          <p>تشمل جميع النباتات التي تقوم بعملية البناء الضوئي.</p>
+          <p><strong>أمثلة:</strong> الأشجار، الأزهار، الأعشاب، السراخس، الطحالب الخضراء.</p>
+        </div>
+        
+        <div class="mb-4">
+          <h4>مملكة الفطريات:</h4>
+          <p>تشمل الفطريات والعفن والخميرة.</p>
+          <p><strong>أمثلة:</strong> فطر عيش الغراب، العفن الأسود، الخميرة.</p>
+        </div>
+        
+        <div class="mb-4">
+          <h4>مملكة البكتيريا:</h4>
+          <p>كائنات وحيدة الخلية بدائية النواة.</p>
+          <p><strong>أمثلة:</strong> البكتيريا المعوية، البكتيريا الزرقاء.</p>
+        </div>
+        
+        <div class="mb-4">
+          <h4>مملكة البروتيستا:</h4>
+          <p>كائنات وحيدة الخلية حقيقية النواة لا تنتمي إلى المجموعات الأخرى.</p>
+          <p><strong>أمثلة:</strong> الأميبا، البراميسيوم، الطحالب أحادية الخلية.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <script>
+    // وظائف عامة
+    function showSection(sectionId) {
+      // إخفاء جميع الأقسام
+      const sections = document.querySelectorAll('.section');
+      sections.forEach(section => {
+        section.classList.remove('active');
+      });
+      
+      // إخفاء الصفحة الرئيسية
+      document.getElementById('home-section').style.display = 'none';
+      
+      // عرض القسم المطلوب
+      if (sectionId === 'home-section') {
+        document.getElementById('home-section').style.display = 'block';
+      } else {
+        document.getElementById(sectionId).classList.add('active');
+      }
+    }
+    
+    // وظائف المترجم
+    const translations = {
+      en: {
+        hello: "مرحبا",
+        world: "عالم",
+        school: "مدرسة",
+        teacher: "مدرس",
+        student: "طالب",
+        book: "كتاب",
+        pen: "قلم",
+        class: "صف",
+        science: "علوم",
+        math: "رياضيات",
+        english: "إنجليزية",
+        arabic: "عربية"
+      },
+      ar: {
+        "مرحبا": "hello",
+        "عالم": "world",
+        "مدرسة": "school",
+        "مدرس": "teacher",
+        "طالب": "student",
+        "كتاب": "book",
+        "قلم": "pen",
+        "صف": "class",
+        "علوم": "science",
+        "رياضيات": "math",
+        "إنجليزية": "english",
+        "عربية": "arabic"
+      }
+    };
+    
+    function translate() {
+      const inputText = document.getElementById('input-text').value;
+      const sourceLang = document.getElementById('source-lang').value;
+      const targetLang = document.getElementById('target-lang').value;
+      
+      if (!inputText) return;
+      
+      const words = inputText.toLowerCase().split(' ');
+      const translatedWords = words.map(word => {
+        if (sourceLang === 'ar' && translations.ar[word]) {
+          return translations.ar[word];
+        } else if (sourceLang === 'en' && translations.en[word]) {
+          return translations.en[word];
+        }
+        return word; // إرجاع الكلمة الأصلية إذا لم يتم العثور على ترجمة
+      });
+      
+      document.getElementById('translation-result').textContent = translatedWords.join(' ');
+    }
+    
+    function swapLanguages() {
+      const sourceLang = document.getElementById('source-lang');
+      const targetLang = document.getElementById('target-lang');
+      const inputText = document.getElementById('input-text');
+      const resultText = document.getElementById('translation-result');
+      
+      // تبديل اللغات
+      const tempLang = sourceLang.value;
+      sourceLang.value = targetLang.value;
+      targetLang.value = tempLang;
+      
+      // تبديل النصوص
+      const tempText = inputText.value;
+      inputText.value = resultText.textContent;
+      resultText.textContent = tempText;
+    }
+    
+    // وظائف الآلة الحاسبة
+    let calculatorDisplay = '0';
+    let calculatorExpression = '';
+    
+    function updateCalculatorDisplay() {
+      document.getElementById('calculator-display').textContent = calculatorDisplay;
+    }
+    
+    function appendToDisplay(value) {
+      if (calculatorDisplay === '0' || calculatorDisplay === 'Error') {
+        calculatorDisplay = value;
+      } else {
+        calculatorDisplay += value;
+      }
+      calculatorExpression += value;
+      updateCalculatorDisplay();
+    }
+    
+    function clearDisplay() {
+      calculatorDisplay = '0';
+      calculatorExpression = '';
+      updateCalculatorDisplay();
+    }
+    
+    function deleteLastChar() {
+      if (calculatorDisplay.length > 1) {
+        calculatorDisplay = calculatorDisplay.slice(0, -1);
+        calculatorExpression = calculatorExpression.slice(0, -1);
+      } else {
+        calculatorDisplay = '0';
+        calculatorExpression = '';
+      }
+      updateCalculatorDisplay();
+    }
+    
+    function calculate() {
+      try {
+        // استخدام Function لتقييم التعبير
+        const result = new Function('return ' + calculatorExpression)();
+        calculatorDisplay = result.toString();
+        calculatorExpression = result.toString();
+        updateCalculatorDisplay();
+      } catch (error) {
+        calculatorDisplay = 'Error';
+        calculatorExpression = '';
+        updateCalculatorDisplay();
+      }
+    }
+    
+    // وظائف القاموس العربي
+    const dictionaryData = {
+      "كتاب": {
+        meaning: "مجموعة من الأوراق المطبوعة والمجلدة معًا",
+        grammar: "اسم، مذكر"
+      },
+      "مدرسة": {
+        meaning: "مؤسسة تعليمية للطلاب",
+        grammar: "اسم، مؤنث"
+      },
+      "علم": {
+        meaning: "المعرفة المنظمة في أي مجال في شكل حقائق وقواعد ومبادئ",
+        grammar: "اسم، مذكر"
+      },
+      "قلم": {
+        meaning: "أداة تستخدم للكتابة أو الرسم",
+        grammar: "اسم، مذكر"
+      },
+      "طالب": {
+        meaning: "شخص يدرس في مدرسة أو جامعة",
+        grammar: "اسم، مذكر"
+      },
+      "معلم": {
+        meaning: "شخص يقوم بتدريس مادة أو مهارة",
+        grammar: "اسم، مذكر"
+      },
+      "كتب": {
+        meaning: "دوّن أو خط بالقلم",
+        grammar: "فعل ماضي"
+      },
+      "يكتب": {
+        meaning: "يقوم بتدوين أو تخطيط بالقلم",
+        grammar: "فعل مضارع"
+      },
+      "قرأ": {
+        meaning: "نظر وفهم المحتوى المكتوب",
+        grammar: "فعل ماضي"
+      },
+      "يقرأ": {
+        meaning: "ينظر ويفهم المحتوى المكتوب",
+        grammar: "فعل مضارع"
+      }
+    };
+    
+    const grammarRules = {
+      "الكتاب": "اسم معرف بال، مرفوع وعلامة رفعه الضمة الظاهرة على آخره",
+      "كتاب": "اسم نكرة، مرفوع وعلامة رفعه الضمة الظاهرة على آخره",
+      "كتابًا": "اسم نكرة، منصوب وعلامة نصبه الفتحة الظاهرة على آخره",
+      "كتابٍ": "اسم نكرة، مجرور وعلامة جره الكسرة الظاهرة على آخره",
+      "المدرسة": "اسم معرف بال، مرفوع وعلامة رفعه الضمة الظاهرة على آخره",
+      "طالب": "اسم نكرة، مرفوع وعلامة رفعه الضمة الظاهرة على آخره",
+      "قرأ": "فعل ماضٍ مبني على الفتح",
+      "يقرأ": "فعل مضارع مرفوع وعلامة رفعه الضمة الظاهرة على آخره",
+      "اقرأ": "فعل أمر مبني على السكون",
+    };
+    
+    function searchArabicWord() {
+      const word = document.getElementById('arabic-search').value.trim();
+      if (!word) return;
+      
+      if (dictionaryData[word]) {
+        document.getElementById('word-title').textContent = word;
+        document.getElementById('word-meaning').textContent = dictionaryData[word].meaning;
+        document.getElementById('word-type').textContent = dictionaryData[word].grammar || '';
+        
+        document.getElementById('grammar-title').textContent = 'إعراب: ' + word;
+        document.getElementById('grammar-analysis').textContent = grammarRules[word] || 'لم يتم العثور على التحليل النحوي';
+        
+        document.getElementById('arabic-result').style.display = 'block';
+        
+        // تفعيل تبويب المعنى
+        switchTab('meaning-tab');
+      } else {
+        document.getElementById('word-title').textContent = word;
+        document.getElementById('word-meaning').textContent = 'لم يتم العثور على هذه الكلمة في القاموس';
+        document.getElementById('word-type').textContent = '';
+        
+        document.getElementById('grammar-title').textContent = 'إعراب: ' + word;
+        document.getElementById('grammar-analysis').textContent = 'غير متوفر';
+        
+        document.getElementById('arabic-result').style.display = 'block';
+      }
+    }
+    
+    function setWord(word) {
+      document.getElementById('arabic-search').value = word;
+      searchArabicWord();
+    }
+    
+    function switchTab(tabId) {
+      // إزالة الفئة النشطة من جميع التبويبات وأزرارها
+      document.querySelectorAll('.tab-content').forEach(tab => {
+        tab.classList.remove('active');
+      });
+      
+      document.querySelectorAll('.tab').forEach(btn => {
+        btn.classList.remove('active');
+      });
+      
+      // تفعيل التبويب المطلوب وزره
+      document.getElementById(tabId).classList.add('active');
+      
+      if (tabId === 'meaning-tab') {
+        document.getElementById('meaning-tab-btn').classList.add('active');
+      } else if (tabId === 'grammar-tab') {
+        document.getElementById('grammar-tab-btn').classList.add('active');
+      }
+    }
+    
+    // وظائف الكيمياء
+    const chemicalEquations = {
+      "H2 + O2": {
+        balanced: "2H₂ + O₂ → 2H₂O",
+        explanation: "تفاعل الهيدروجين مع الأكسجين لإنتاج الماء. يجب مضاعفة الماء بمعامل 2 لموازنة ذرات الهيدروجين والأكسجين."
+      },
+      "NaOH + HCl": {
+        balanced: "NaOH + HCl → NaCl + H₂O",
+        explanation: "تفاعل هيدروكسيد الصوديوم مع حمض الهيدروكلوريك لإنتاج كلوريد الصوديوم والماء."
+      },
+      "CaCO3": {
+        balanced: "CaCO₃ → CaO + CO₂",
+        explanation: "تحلل كربونات الكالسيوم إلى أكسيد الكالسيوم وثاني أكسيد الكربون."
+      },
+      "C + O2": {
+        balanced: "C + O₂ → CO₂",
+        explanation: "احتراق الكربون في وجود الأكسجين لإنتاج ثاني أكسيد الكربون."
+      },
+      "CH4 + O2": {
+        balanced: "CH₄ + 2O₂ → CO₂ + 2H₂O",
+        explanation: "احتراق الميثان في وجود الأكسجين لإنتاج ثاني أكسيد الكربون والماء."
+      }
+    };
+    
+    const gases = {
+      "H2": {
+        preparation: "يمكن تحضير غاز الهيدروجين عن طريق تفاعل الزنك مع حمض الهيدروكلوريك: Zn + 2HCl → ZnCl₂ + H₂",
+        properties: "غاز عديم اللون والرائحة، قابل للاشتعال، أخف من الهواء"
+      },
+      "O2": {
+        preparation: "يمكن تحضير غاز الأكسجين عن طريق تحلل فوق أكسيد الهيدروجين: 2H₂O₂ → 2H₂O + O₂",
+        properties: "غاز عديم اللون والرائحة، يساعد على الاحتراق، أثقل من الهواء"
+      },
+      "CO2": {
+        preparation: "يمكن تحضير غاز ثاني أكسيد الكربون عن طريق تفاعل كربونات الكالسيوم مع حمض الهيدروكلوريك: CaCO₃ + 2HCl → CaCl₂ + H₂O + CO₂",
+        properties: "غاز عديم اللون، ذو رائحة خفيفة، لا يشتعل ولا يساعد على الاشتعال، أثقل من الهواء"
+      },
+      "NH3": {
+        preparation: "يمكن تحضير غاز الأمونيا في المختبر عن طريق تسخين مزيج من كلوريد الأمونيوم وهيدروكسيد الصوديوم: NH₄Cl + NaOH → NH₃ + H₂O + NaCl",
+        properties: "غاز عديم اللون، ذو رائحة نفاذة، قابل للذوبان في الماء، أخف من الهواء"
+      },
+      "Cl2": {
+        preparation: "يمكن تحضير غاز الكلور عن طريق أكسدة حمض الهيدروكلوريك بواسطة ثاني أكسيد المنغنيز: MnO₂ + 4HCl → MnCl₂ + 2H₂O + Cl₂",
+        properties: "غاز أصفر مخضر، ذو رائحة خانقة، سام، أثقل من الهواء، مؤكسد قوي"
+      }
+    };
+    
+    function searchEquation() {
+      const equation = document.getElementById('equation-search').value.trim();
+      if (!equation) return;
+      
+      if (chemicalEquations[equation]) {
+        document.getElementById('balanced-equation').textContent = chemicalEquations[equation].balanced;
+        document.getElementById('equation-explanation').textContent = chemicalEquations[equation].explanation;
+        
+        document.getElementById('equation-result').style.display = 'block';
+      } else {
+        if (equation.includes('+')) {
+          document.getElementById('balanced-equation').textContent = `${equation} → منتجات التفاعل`;
+          document.getElementById('equation-explanation').textContent = "لم نتمكن من العثور على هذه المعادلة بالضبط. يرجى التحقق من الصيغة الكيميائية.";
+        } else {
+          document.getElementById('balanced-equation').textContent = "غير متوفر";
+          document.getElementById('equation-explanation').textContent = "لم يتم العثور على هذه المعادلة في قاعدة البيانات.";
+        }
+        
+        document.getElementById('equation-result').style.display = 'block';
+      }
+    }
+    
+    function searchGas() {
+      const gas = document.getElementById('gas-search').value.trim();
+      if (!gas) return;
+      
+      if (gases[gas]) {
+        document.getElementById('gas-name').textContent = `غاز ${gas}:`;
+        document.getElementById('gas-preparation').textContent = gases[gas].preparation;
+        document.getElementById('gas-properties').textContent = gases[gas].properties;
+        
+        document.getElementById('gas-result').style.display = 'block';
+      } else {
+        document.getElementById('gas-name').textContent = `غاز ${gas}:`;
+        document.getElementById('gas-preparation').textContent = "معلومات تحضير هذا الغاز غير متوفرة.";
+        document.getElementById('gas-properties').textContent = "معلومات خصائص هذا الغاز غير متوفرة.";
+        
+        document.getElementById('gas-result').style.display = 'block';
+      }
+    }
+    
+    function setEquation(equation) {
+      document.getElementById('equation-search').value = equation;
+      searchEquation();
+    }
+    
+    function setGas(gas) {
+      document.getElementById('gas-search').value = gas;
+      searchGas();
+    }
+    
+    function switchChemTab(tabId) {
+      const tabContents = document.querySelectorAll('#chemistry-section .tab-content');
+      tabContents.forEach(tab => {
+        tab.classList.remove('active');
+      });
+      
+      const tabButtons = document.querySelectorAll('#chemistry-section .tab');
+      tabButtons.forEach(btn => {
+        btn.classList.remove('active');
+      });
+      
+      document.getElementById(tabId).classList.add('active');
+      
+      if (tabId === 'equation-tab') {
+        document.getElementById('equation-tab-btn').classList.add('active');
+      } else if (tabId === 'gas-tab') {
+        document.getElementById('gas-tab-btn').classList.add('active');
+      }
+    }
+  </script>
+  
+  <!-- IMPORTANT: DO NOT REMOVE THIS SCRIPT TAG OR THIS VERY COMMENT! -->
+  <script src="https://cdn.gpteng.co/gptengineer.js" type="module"></script>
+</body>
+</html>
